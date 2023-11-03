@@ -17,14 +17,19 @@ def run_server():
             console.print(
                 "index.html' not found in the project directory.", style="bold red")
             return
+        os.chdir(project_name)
+        host()
     else:
-        if "index.html" in os.listdir():
-            server_address = ('localhost', 3000)
-            httpd = ServerClass(server_address, HandlerClass)
-            sa = httpd.socket.getsockname()
-            console.print(
-                f"Visit http://localhost:3000 or http://{sa[0]}:{sa[1]}")
-            httpd.serve_forever()
+        host()
+    
+def host():
+    if "index.html" in os.listdir():
+        server_address = ('localhost', 3000)
+        httpd = ServerClass(server_address, HandlerClass)
+        sa = httpd.socket.getsockname()
+        console.print(
+            f"Visit http://localhost:3000 or http://{sa[0]}:{sa[1]}")
+        httpd.serve_forever()
 
 
 def create_project(project_name, include_bootstrap=False):
